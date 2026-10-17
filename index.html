@@ -500,7 +500,7 @@
       <div class="flashcard-dual-grid">
         <div class="fc-column-card">
           <div class="fc-slide-container" id="fcSlideWrapper">
-            <img id="fcImg" src="" alt="Slide thuật ngữ" onerror="handleImageFallback(this)" />
+            <img id="fcImg" src="" alt="Slide thuật ngữ" />
           </div>
 
           <div>
@@ -674,7 +674,7 @@
 
   <script>
     /* ==========================================================================
-       0. WEB AUDIO API SYNTHESIZER (HIỆU ỨNG ÂM THANH ĐÚNG / SAI)
+       0. WEB AUDIO API SYNTHESIZER (HIỆU ỨNG ÂM THANH ĐÚNG / SAI TỨC THÌ)
        ========================================================================== */
     const SoundFX = {
       ctx: null,
@@ -730,12 +730,13 @@
     };
 
     /* ==========================================================================
-       1. VOCABULARY DATA: 25 THUẬT NGỮ CHUẨN UNIT 2
+       1. VOCABULARY DATA: 25 THUẬT NGỮ CHUẨN UNIT 2 KÈM ALIAS DỰ PHÒNG
        ========================================================================== */
     const VOCABULARY_DATA = [
       {
         id: 1,
         code: "010_Gene",
+        aliases: ["010_gene", "010_Gene"],
         word: "Gene",
         fullName: "",
         ipa: "/dʒiːn/",
@@ -745,6 +746,7 @@
       {
         id: 2,
         code: "011_Polypeptide",
+        aliases: ["011_polypeptide", "011_Polypeptide"],
         word: "Polypeptide",
         fullName: "",
         ipa: "/ˌpɒliˈpeptaɪd/",
@@ -754,6 +756,7 @@
       {
         id: 3,
         code: "012_mRNA",
+        aliases: ["012_mRNA", "012_mrna", "012_MRNA"],
         word: "mRNA",
         fullName: "(messenger RNA)",
         ipa: "/ˌem ɑːr en ˈeɪ/",
@@ -763,6 +766,7 @@
       {
         id: 4,
         code: "013_Promoter",
+        aliases: ["013_Promoter", "013_Promotor", "013_promoter"],
         word: "Promoter",
         fullName: "",
         ipa: "/prəˈmoʊtər/",
@@ -772,6 +776,7 @@
       {
         id: 5,
         code: "014_Amino_acid",
+        aliases: ["014_Amino_acid", "014_amino_acid"],
         word: "Amino acid",
         fullName: "",
         ipa: "/əˌmiːnoʊ ˈæsɪd/",
@@ -781,6 +786,7 @@
       {
         id: 6,
         code: "015_Exon",
+        aliases: ["015_Exon", "015_exon"],
         word: "Exon",
         fullName: "",
         ipa: "/ˈeksɒn/",
@@ -790,6 +796,7 @@
       {
         id: 7,
         code: "016_Intron",
+        aliases: ["016_Intron", "016_intron"],
         word: "Intron",
         fullName: "",
         ipa: "/ˈintrɒn/",
@@ -799,6 +806,7 @@
       {
         id: 8,
         code: "017_rRNA",
+        aliases: ["017_rRNA", "017_rrna", "017_RRNA"],
         word: "rRNA",
         fullName: "(ribosomal RNA)",
         ipa: "/ˌɑːr ɑːr en ˈeɪ/",
@@ -808,6 +816,7 @@
       {
         id: 9,
         code: "018_tRNA",
+        aliases: ["018_tRNA", "018_trna", "018_TRNA"],
         word: "tRNA",
         fullName: "(transfer RNA)",
         ipa: "/ˌtiː ɑːr en ˈeɪ/",
@@ -817,6 +826,7 @@
       {
         id: 10,
         code: "019_7_Methyl_guanine",
+        aliases: ["019_7_Methyl_guanine", "019_7_methyl_guanine"],
         word: "7-methyl guanine",
         fullName: "",
         ipa: "/ˌsevn ˈmeθɪl ˈɡwɑːniːn/",
@@ -826,6 +836,7 @@
       {
         id: 11,
         code: "020_Adenine",
+        aliases: ["020_Adenine", "020_adenine"],
         word: "Adenine",
         fullName: "",
         ipa: "/ˈædɪniːn/",
@@ -835,6 +846,7 @@
       {
         id: 12,
         code: "021_Poly_A",
+        aliases: ["021_Poly_A", "021_PolyA", "021_poly_a"],
         word: "Poly A",
         fullName: "",
         ipa: "/ˌpɒli ˈeɪ/",
@@ -844,6 +856,7 @@
       {
         id: 13,
         code: "022_Ribosome",
+        aliases: ["022_Ribosome", "022_ribosome"],
         word: "Ribosome",
         fullName: "",
         ipa: "/ˈraɪbəsoʊm/",
@@ -853,6 +866,7 @@
       {
         id: 14,
         code: "023_Anticodon",
+        aliases: ["023_Anticodon", "023_anticodon"],
         word: "Anticodon",
         fullName: "",
         ipa: "/ˌæntiˈkoʊdɒn/",
@@ -862,6 +876,7 @@
       {
         id: 15,
         code: "024_Telomerase",
+        aliases: ["024_Telomerase", "024_telomerase"],
         word: "Telomerase",
         fullName: "",
         ipa: "/təˈlɒməreɪs/",
@@ -871,6 +886,7 @@
       {
         id: 16,
         code: "025_cDNA",
+        aliases: ["025_cDNA", "025_cdna", "025_CDNA"],
         word: "cDNA",
         fullName: "(complementary DNA)",
         ipa: "/ˌsiː diː en ˈeɪ/",
@@ -880,6 +896,7 @@
       {
         id: 17,
         code: "026_Alanine",
+        aliases: ["026_Alanine", "026_alanine"],
         word: "Alanine",
         fullName: "(Ala)",
         ipa: "/ˈæləniːn/",
@@ -889,6 +906,7 @@
       {
         id: 18,
         code: "027_Serine",
+        aliases: ["027_Serine", "027_serine"],
         word: "Serine",
         fullName: "(Ser)",
         ipa: "/ˈseriːn/",
@@ -898,6 +916,7 @@
       {
         id: 19,
         code: "028_Tyrosine",
+        aliases: ["028_Tyrosine", "028_tyrosine"],
         word: "Tyrosine",
         fullName: "(Tyr)",
         ipa: "/ˈtaɪrəsiːn/",
@@ -907,6 +926,7 @@
       {
         id: 20,
         code: "029_Tryptophan",
+        aliases: ["029_Tryptophan", "029_tryptophan"],
         word: "Tryptophan",
         fullName: "(Trp)",
         ipa: "/ˈtrɪptəfæn/",
@@ -916,6 +936,7 @@
       {
         id: 21,
         code: "030_Methionine",
+        aliases: ["030_Methionine", "030_methionine"],
         word: "Methionine",
         fullName: "(Met)",
         ipa: "/məˈθaɪəniːn/",
@@ -925,6 +946,7 @@
       {
         id: 22,
         code: "031_Formylmethionine",
+        aliases: ["031_Formylmethionine", "031_Folmylmethionine", "031_formylmethionine"],
         word: "Formylmethionine",
         fullName: "(fMet)",
         ipa: "/ˌfɔːrməlmeˈθaɪəniːn/",
@@ -934,6 +956,7 @@
       {
         id: 23,
         code: "032_Polyribosome",
+        aliases: ["032_Polyribosome", "032_polyribosome"],
         word: "Polyribosome",
         fullName: "(Polysome)",
         ipa: "/ˌpɒliraɪbəsoʊm/",
@@ -943,6 +966,7 @@
       {
         id: 24,
         code: "033_miRNA",
+        aliases: ["033_miRNA", "033_mirna", "033_MIRNA"],
         word: "miRNA",
         fullName: "(microRNA)",
         ipa: "/ˌmaɪ ɑːr en ˈeɪ/",
@@ -952,6 +976,7 @@
       {
         id: 25,
         code: "034_siRNA",
+        aliases: ["034_siRNA", "034_sirna", "034_SIRNA"],
         word: "siRNA",
         fullName: "(small interfering RNA)",
         ipa: "/ˌsaɪ ɑːr en ˈeɪ/",
@@ -1110,7 +1135,9 @@
       }
     }
 
-    /* 5. FLASHCARD ENGINE CÓ SOUND EFFECT */
+    /* ==========================================================================
+       5. FAULT-TOLERANT ENGINE: TỰ ĐỘNG THỬ TÊN BIẾN THỂ & TẠO SLIDE NỘI BỘ
+       ========================================================================== */
     function renderFlashcard(index) {
       if (index < 0) index = 0;
       if (index >= VOCABULARY_DATA.length) index = VOCABULARY_DATA.length - 1;
@@ -1119,23 +1146,79 @@
       const item = VOCABULARY_DATA[index];
       document.getElementById("fcCounter").innerText = `${index + 1} / ${VOCABULARY_DATA.length}`;
 
+      // Danh sách các biến thể tên tệp để tự động phục hồi nếu có lệch chữ hoa/thường
+      const candidates = Array.from(new Set([
+        item.code,
+        item.code.toLowerCase(),
+        item.code.toUpperCase(),
+        ...(item.aliases || [])
+      ]));
+
+      // 1. Phục hồi và nạp Ảnh Slide
       const imgEl = document.getElementById("fcImg");
-      imgEl.src = `media/${item.code}.png`;
+      let imgCandidateIdx = 0;
 
+      function tryNextImage() {
+        if (imgCandidateIdx < candidates.length) {
+          const currentCode = candidates[imgCandidateIdx++];
+          imgEl.onerror = () => tryNextImage();
+          imgEl.src = `media/${currentCode}.png`;
+        } else {
+          // Fallback cuối cùng: Tạo Slide Vector SVG sư phạm nội bộ (Không dùng ảnh Unsplash)
+          imgEl.onerror = null;
+          const svgContent = `
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+              <defs>
+                <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#ecfdf5"/>
+                  <stop offset="100%" stop-color="#d1fae5"/>
+                </linearGradient>
+              </defs>
+              <rect width="800" height="450" rx="16" fill="url(#bgGrad)"/>
+              <rect x="24" y="24" width="752" height="402" rx="12" fill="none" stroke="#059669" stroke-width="2" stroke-dasharray="6,6"/>
+              <text x="400" y="110" font-family="'Plus Jakarta Sans', sans-serif" font-size="22" font-weight="800" fill="#047857" text-anchor="middle">UNIT 2: BIOLOGY VOCABULARY</text>
+              <text x="400" y="200" font-family="'Plus Jakarta Sans', sans-serif" font-size="52" font-weight="800" fill="#065f46" text-anchor="middle">${item.word}</text>
+              <text x="400" y="250" font-family="'Plus Jakarta Sans', sans-serif" font-size="24" font-weight="600" fill="#0284c7" text-anchor="middle">${item.ipa}</text>
+              <text x="400" y="320" font-family="'Plus Jakarta Sans', sans-serif" font-size="18" font-weight="500" fill="#334155" text-anchor="middle">${item.defVi.length > 60 ? item.defVi.substring(0,60)+'...' : item.defVi}</text>
+            </svg>
+          `;
+          imgEl.src = 'data:image/svg+xml;utf8,' + encodeURIComponent(svgContent);
+        }
+      }
+      tryNextImage();
+
+      // 2. Phục hồi và nạp Audio
       const audioEl = document.getElementById("fcAudio");
-      audioEl.src = `media/${item.code}.mp3`;
-      audioEl.load();
+      let audioCandidateIdx = 0;
+      function tryNextAudio() {
+        if (audioCandidateIdx < candidates.length) {
+          const currentCode = candidates[audioCandidateIdx++];
+          audioEl.onerror = () => tryNextAudio();
+          audioEl.src = `media/${currentCode}.mp3`;
+          audioEl.load();
+        } else {
+          audioEl.onerror = null;
+        }
+      }
+      tryNextAudio();
 
+      // 3. Phục hồi và nạp Video
       const videoEl = document.getElementById("fcVideo");
+      let videoCandidateIdx = 0;
       videoEl.pause();
-      videoEl.src = `media/${item.code}.mp4`;
-      videoEl.load();
+      function tryNextVideo() {
+        if (videoCandidateIdx < candidates.length) {
+          const currentCode = candidates[videoCandidateIdx++];
+          videoEl.onerror = () => tryNextVideo();
+          videoEl.src = `media/${currentCode}.mp4`;
+          videoEl.load();
+        } else {
+          videoEl.onerror = null;
+        }
+      }
+      tryNextVideo();
 
       setupScramble(item.word);
-    }
-
-    function handleImageFallback(imgEl) {
-      imgEl.src = "https://images.unsplash.com/photo-1530026405186-ed1f139313f8?w=800&auto=format&fit=crop&q=80";
     }
 
     function navigateCard(direction) {
@@ -1144,7 +1227,7 @@
 
     let currentScrambleTarget = "";
     function setupScramble(word) {
-      currentScrambleTarget = word.toUpperCase().replace(/\s+/g, '');
+      currentScrambleTarget = word.toUpperCase().replace(/[^A-Z0-9]/g, '');
       const letters = currentScrambleTarget.split('');
       for (let i = letters.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -1165,7 +1248,7 @@
     }
 
     function checkScramble() {
-      const userVal = document.getElementById("scrambleInput").value.trim().toUpperCase().replace(/\s+/g, '');
+      const userVal = document.getElementById("scrambleInput").value.trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
       const fb = document.getElementById("scrambleFeedback");
       if (userVal === currentScrambleTarget) {
         SoundFX.playCorrect();
@@ -1176,7 +1259,9 @@
       }
     }
 
-    /* 6. REVIEW QUIZ (NÚT NỘP BÀI THƯỜNG TRỰC & HIỆU ỨNG ÂM THANH) */
+    /* ==========================================================================
+       6. REVIEW QUIZ (CÓ NÚT NỘP BÀI THƯỜNG TRỰC & PHẢN HỒI ÂM THANH)
+       ========================================================================== */
     function initPracticeQuiz(totalQuestions) {
       document.getElementById("btnQuiz10").classList.toggle("btn-primary", totalQuestions === 10);
       document.getElementById("btnQuiz20").classList.toggle("btn-primary", totalQuestions === 20);
@@ -1195,7 +1280,7 @@
         practiceQuestions.push({
           type: "scramble",
           question: `Sắp xếp các chữ cái để tạo thành thuật ngữ có nghĩa: "${item.defVi}"`,
-          target: item.word.toUpperCase().replace(/\s+/g, ''),
+          target: item.word.toUpperCase().replace(/[^A-Z0-9]/g, ''),
           correctDisplay: item.word,
           hint: `Bắt đầu bằng '${item.word[0]}', IPA: ${item.ipa}`
         });
@@ -1389,7 +1474,7 @@
         chkBtn.className = "btn btn-primary";
         chkBtn.innerText = "Kiểm tra";
         chkBtn.onclick = () => {
-          const val = inp.value.trim().toUpperCase().replace(/\s+/g, '');
+          const val = inp.value.trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
           practiceAnswers[currentPracticeIdx] = val;
           if (val === q.target) {
             SoundFX.playCorrect();
@@ -1480,7 +1565,9 @@
       }
     }
 
-    /* 7. ARENA SYSTEM (ĐẾM NGƯỢC 3 PHÚT = 180 GIÂY & ĐỒNG BỘ GOOGLE SHEETS) */
+    /* ==========================================================================
+       7. ARENA SYSTEM (ĐẾM NGƯỢC 3 PHÚT = 180 GIÂY & ĐỒNG BỘ GOOGLE SHEETS)
+       ========================================================================== */
     function startArenaExam() {
       const rawInput = document.getElementById("arenaRoomCodeInput").value.trim().toUpperCase();
       const cleanInput = rawInput.replace(/\s+/g, '');
@@ -1506,7 +1593,7 @@
       arenaQuestions = [...ARENA_EXAMS.defaultExam];
       arenaAnswers = {};
       currentArenaIdx = 0;
-      arenaRemainingSeconds = ARENA_CONFIG.durationMinutes * 60;
+      arenaRemainingSeconds = ARENA_CONFIG.durationMinutes * 60; // 3 * 60 = 180 giây
 
       renderArenaSlider();
       renderArenaQuestion();
