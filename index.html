@@ -584,6 +584,8 @@
       <div class="card" id="practiceResultBox" style="max-width: 600px; margin: 1.5rem auto; text-align: center; display: none;">
         <span style="font-size: 2.8rem;">🎯</span>
         <h2 style="font-weight: 800; color: var(--primary-dark); margin: 0.4rem 0;">KẾT QUẢ ÔN TẬP</h2>
+        <p style="color: var(--text-muted); font-size: 0.88rem;" id="practiceSyncStatus">Đang gửi dữ liệu về Google Sheets...</p>
+
         <div style="background: var(--primary-light); padding: 1.25rem; border-radius: var(--radius-md); margin: 1.25rem 0;">
           <div style="font-size: 2.5rem; font-weight: 800; color: var(--primary-dark);" id="practiceResultScore">0 / 10</div>
           <div style="font-size: 0.9rem; font-weight: 600; color: var(--primary);">Tỷ lệ chính xác: <span id="practiceResultPercent">0%</span> (Thang 10: <span id="practiceResultScale10">0.0</span>)</div>
@@ -674,7 +676,7 @@
 
   <script>
     /* ==========================================================================
-       0. WEB AUDIO API SYNTHESIZER (HIỆU ỨNG ÂM THANH ĐÚNG / SAI TỨC THÌ)
+       0. WEB AUDIO API SYNTHESIZER
        ========================================================================== */
     const SoundFX = {
       ctx: null,
@@ -730,7 +732,7 @@
     };
 
     /* ==========================================================================
-       1. VOCABULARY DATA: 25 THUẬT NGỮ CHUẨN UNIT 2 KÈM ALIAS DỰ PHÒNG
+       1. VOCABULARY DATA: 25 THUẬT NGỮ CHUẨN UNIT 2
        ========================================================================== */
     const VOCABULARY_DATA = [
       {
@@ -985,20 +987,25 @@
       }
     ];
 
-    /* 2. CẤU HÌNH ĐẤU TRƯỜNG: 3 PHÚT (180 GIÂY) */
+    /* ==========================================================================
+       2. CẤU HÌNH ĐẤU TRƯỜNG & GOOGLE SHEETS
+       (DÁN LINK URL APPS SCRIPT CỦA BẠN VÀO ĐÂY)
+       ========================================================================== */
     const ARENA_CONFIG = {
       validCodes: ["CVA", "TUDO"],
       durationMinutes: 3,
       googleSheetUrl: "https://script.google.com/macros/s/AKfycbycbqEZwaLYM9BM-CButPO5wgVPh64QlOTawiDltBzuOhlJTmFGto1c_2T4mZBk6MqefQ/exec"
     };
 
-    /* 3. BỘ ĐỀ ĐẤU TRƯỜNG UNIT 2 (10 CÂU: MCQ, ĐÚNG/SAI, ĐIỀN SỐ) */
+    /* ==========================================================================
+       3. BỘ ĐỀ ĐẤU TRƯỜNG UNIT 2 (ĐÃ CHUẨN HÓA CÂU 1 & CÂU 5)
+       ========================================================================== */
     const ARENA_EXAMS = {
       defaultExam: [
         {
           id: 1,
           type: "mcq",
-          question: "Đoạn ADN nào sau đây mang thông tin mã hóa axit amin và được giữ lại trong mARN trưởng thành ở sinh vật nhân thực?",
+          question: "Đoạn DNA nào sau đây mang thông tin mã hóa amino acid và được giữ lại trong mRNA trưởng thành ở sinh vật nhân thực?",
           options: ["Intron", "Exon", "Promoter", "Poly A"],
           answer: 1,
           hint: "Exon là các đoạn mang mã dịch mã."
@@ -1030,7 +1037,7 @@
         {
           id: 5,
           type: "tf",
-          question: "Khẳng định: Các đoạn intron là các đoạn không mã hóa axit amin bị cắt bỏ khỏi pre-mRNA trong quá trình hoàn thiện mRNA.",
+          question: "Khẳng định: Các đoạn intron là các đoạn không mã hóa amino acid bị cắt bỏ khỏi pre-mRNA trong quá trình hoàn thiện mRNA.",
           options: ["Đúng", "Sai"],
           answer: 0,
           hint: "Intron bị cắt bỏ trong quá trình splicing."
@@ -1135,9 +1142,7 @@
       }
     }
 
-    /* ==========================================================================
-       5. FAULT-TOLERANT ENGINE: TỰ ĐỘNG THỬ TÊN BIẾN THỂ & TẠO SLIDE NỘI BỘ
-       ========================================================================== */
+    /* 5. FLASHCARD ENGINE CÓ SMART AUTO-FALLBACK & SOUND EFFECT */
     function renderFlashcard(index) {
       if (index < 0) index = 0;
       if (index >= VOCABULARY_DATA.length) index = VOCABULARY_DATA.length - 1;
@@ -1146,7 +1151,6 @@
       const item = VOCABULARY_DATA[index];
       document.getElementById("fcCounter").innerText = `${index + 1} / ${VOCABULARY_DATA.length}`;
 
-      // Danh sách các biến thể tên tệp để tự động phục hồi nếu có lệch chữ hoa/thường
       const candidates = Array.from(new Set([
         item.code,
         item.code.toLowerCase(),
@@ -1154,17 +1158,15 @@
         ...(item.aliases || [])
       ]));
 
-      // 1. Phục hồi và nạp Ảnh Slide
+      // Ảnh Slide
       const imgEl = document.getElementById("fcImg");
       let imgCandidateIdx = 0;
-
       function tryNextImage() {
         if (imgCandidateIdx < candidates.length) {
           const currentCode = candidates[imgCandidateIdx++];
           imgEl.onerror = () => tryNextImage();
           imgEl.src = `media/${currentCode}.png`;
         } else {
-          // Fallback cuối cùng: Tạo Slide Vector SVG sư phạm nội bộ (Không dùng ảnh Unsplash)
           imgEl.onerror = null;
           const svgContent = `
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
@@ -1187,7 +1189,7 @@
       }
       tryNextImage();
 
-      // 2. Phục hồi và nạp Audio
+      // Audio
       const audioEl = document.getElementById("fcAudio");
       let audioCandidateIdx = 0;
       function tryNextAudio() {
@@ -1202,7 +1204,7 @@
       }
       tryNextAudio();
 
-      // 3. Phục hồi và nạp Video
+      // Video
       const videoEl = document.getElementById("fcVideo");
       let videoCandidateIdx = 0;
       videoEl.pause();
@@ -1260,7 +1262,7 @@
     }
 
     /* ==========================================================================
-       6. REVIEW QUIZ (CÓ NÚT NỘP BÀI THƯỜNG TRỰC & PHẢN HỒI ÂM THANH)
+       6. REVIEW QUIZ (ĐỒNG BỘ ĐIỂM GOOGLE SHEETS)
        ========================================================================== */
     function initPracticeQuiz(totalQuestions) {
       document.getElementById("btnQuiz10").classList.toggle("btn-primary", totalQuestions === 10);
@@ -1478,301 +1480,3 @@
           practiceAnswers[currentPracticeIdx] = val;
           if (val === q.target) {
             SoundFX.playCorrect();
-            alert("✅ Hoàn toàn chính xác!");
-          } else {
-            SoundFX.playIncorrect();
-            alert("❌ Chưa chính xác. Gợi ý: " + q.hint);
-          }
-          renderPracticeSlider();
-        };
-
-        wrap.appendChild(inp);
-        wrap.appendChild(chkBtn);
-        body.appendChild(wrap);
-      }
-    }
-
-    function togglePracticeHint() {
-      const box = document.getElementById("practiceHintBox");
-      box.style.display = box.style.display === "none" ? "block" : "none";
-    }
-
-    function prevPracticeQuestion() {
-      if (currentPracticeIdx > 0) {
-        currentPracticeIdx--;
-        renderPracticeSlider();
-        renderPracticeCurrentQuestion();
-      }
-    }
-    function nextPracticeQuestion() {
-      if (currentPracticeIdx < practiceQuestions.length - 1) {
-        currentPracticeIdx++;
-        renderPracticeSlider();
-        renderPracticeCurrentQuestion();
-      }
-    }
-
-    function submitPracticeQuiz(forceSubmit) {
-      if (!forceSubmit) {
-        const answeredCount = Object.keys(practiceAnswers).length;
-        const total = practiceQuestions.length;
-        if (answeredCount < total) {
-          const confirmSubmit = confirm(`Bạn đã làm ${answeredCount}/${total} câu. Bạn có chắc chắn muốn nộp bài để xem kết quả không?`);
-          if (!confirmSubmit) return;
-        }
-      }
-
-      let correctCount = 0;
-      let detailsHtml = "";
-
-      practiceQuestions.forEach((q, idx) => {
-        let isCorrect = false;
-        let userAnsText = practiceAnswers[idx] !== undefined ? practiceAnswers[idx] : "(Chưa trả lời)";
-
-        if (q.type === "mcq") {
-          isCorrect = (practiceAnswers[idx] === q.answer);
-          userAnsText = practiceAnswers[idx] !== undefined ? q.options[practiceAnswers[idx]] : "(Chưa trả lời)";
-        } else {
-          isCorrect = (practiceAnswers[idx] === q.target);
-        }
-
-        if (isCorrect) correctCount++;
-
-        detailsHtml += `
-          <div style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);">
-            <strong>Câu ${idx + 1}:</strong> ${isCorrect ? '✅' : '❌'} 
-            <span>Bạn chọn: <em>${userAnsText}</em></span>
-            ${!isCorrect ? `<span style="color:var(--primary); font-weight:700;"> (Đáp án đúng: ${q.correctDisplay})</span>` : ''}
-          </div>
-        `;
-      });
-
-      const total = practiceQuestions.length;
-      const percent = Math.round((correctCount / total) * 100);
-      const scale10 = ((correctCount / total) * 10).toFixed(1);
-
-      document.getElementById("practiceQuizCard").style.display = "none";
-      document.getElementById("practiceResultBox").style.display = "block";
-      document.getElementById("practiceResultScore").innerText = `${correctCount} / ${total}`;
-      document.getElementById("practiceResultPercent").innerText = `${percent}%`;
-      document.getElementById("practiceResultScale10").innerText = `${scale10}/10`;
-      document.getElementById("practiceResultDetails").innerHTML = detailsHtml;
-
-      if (correctCount >= total / 2) {
-        SoundFX.playCorrect();
-      } else {
-        SoundFX.playIncorrect();
-      }
-    }
-
-    /* ==========================================================================
-       7. ARENA SYSTEM (ĐẾM NGƯỢC 3 PHÚT = 180 GIÂY & ĐỒNG BỘ GOOGLE SHEETS)
-       ========================================================================== */
-    function startArenaExam() {
-      const rawInput = document.getElementById("arenaRoomCodeInput").value.trim().toUpperCase();
-      const cleanInput = rawInput.replace(/\s+/g, '');
-
-      if (!ARENA_CONFIG.validCodes.includes(cleanInput)) {
-        alert("⚠️ Mã phòng thi không đúng! Vui lòng nhập đúng mã giáo viên cung cấp.");
-        return;
-      }
-
-      if (!currentUser.name) {
-        alert("⚠️ Vui lòng cập nhật Họ tên trước khi làm bài Đấu trường!");
-        switchScreen("welcome");
-        return;
-      }
-
-      document.getElementById("arenaLockBox").style.display = "none";
-      document.getElementById("arenaExamBox").style.display = "block";
-      document.getElementById("arenaResultBox").style.display = "none";
-
-      document.getElementById("arenaCurrentRoomLabel").innerText = cleanInput;
-      document.getElementById("arenaCandidateLabel").innerText = `Thí sinh: ${currentUser.name} (${currentUser.class})`;
-
-      arenaQuestions = [...ARENA_EXAMS.defaultExam];
-      arenaAnswers = {};
-      currentArenaIdx = 0;
-      arenaRemainingSeconds = ARENA_CONFIG.durationMinutes * 60; // 3 * 60 = 180 giây
-
-      renderArenaSlider();
-      renderArenaQuestion();
-      startArenaTimer();
-    }
-
-    function startArenaTimer() {
-      clearInterval(arenaTimerInterval);
-      arenaTimerInterval = setInterval(() => {
-        arenaRemainingSeconds--;
-        const m = Math.floor(arenaRemainingSeconds / 60);
-        const s = arenaRemainingSeconds % 60;
-        document.getElementById("arenaTimer").innerText = `${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}`;
-
-        if (arenaRemainingSeconds <= 0) {
-          clearInterval(arenaTimerInterval);
-          alert("⏰ Đã hết 03 phút làm bài! Hệ thống tự động nộp bài.");
-          submitArenaExam(true);
-        }
-      }, 1000);
-    }
-
-    function renderArenaSlider() {
-      const slider = document.getElementById("arenaNavSlider");
-      slider.innerHTML = "";
-      arenaQuestions.forEach((q, idx) => {
-        const btn = document.createElement("button");
-        btn.className = `q-step-btn ${idx === currentArenaIdx ? 'active' : ''} ${arenaAnswers[idx] !== undefined ? 'answered' : ''}`;
-        btn.innerText = idx + 1;
-        btn.onclick = () => {
-          currentArenaIdx = idx;
-          renderArenaSlider();
-          renderArenaQuestion();
-        };
-        slider.appendChild(btn);
-      });
-    }
-
-    function renderArenaQuestion() {
-      const q = arenaQuestions[currentArenaIdx];
-      document.getElementById("arenaQNumberLabel").innerText = `Câu ${currentArenaIdx + 1} / ${arenaQuestions.length}`;
-      document.getElementById("arenaQuestionTypeBadge").innerText = q.type.toUpperCase();
-      document.getElementById("arenaQuestionTitle").innerText = q.question;
-
-      const box = document.getElementById("arenaQuestionContent");
-      box.innerHTML = "";
-
-      if (q.type === "mcq" || q.type === "tf") {
-        q.options.forEach((opt, optIdx) => {
-          const btn = document.createElement("button");
-          btn.className = `option-btn ${arenaAnswers[currentArenaIdx] === optIdx ? 'selected' : ''}`;
-          btn.innerHTML = `<span style="display:inline-block; width:22px; height:22px; border-radius:50%; background:#e2e8f0; text-align:center; line-height:22px; font-size:0.75rem;">${String.fromCharCode(65 + optIdx)}</span> ${opt}`;
-          btn.onclick = () => {
-            arenaAnswers[currentArenaIdx] = optIdx;
-            renderArenaSlider();
-            renderArenaQuestion();
-          };
-          box.appendChild(btn);
-        });
-      } else if (q.type === "num") {
-        const wrap = document.createElement("div");
-        wrap.style.marginTop = "0.85rem";
-        wrap.innerHTML = `
-          <label style="font-size:0.85rem; font-weight:700; margin-bottom:0.35rem; display:block;">Nhập số nguyên đáp án:</label>
-          <input type="number" id="arenaNumInput" class="form-control" autocomplete="off" style="max-width:220px; font-weight:700; font-size:1.1rem;" value="${arenaAnswers[currentArenaIdx] !== undefined ? arenaAnswers[currentArenaIdx] : ''}">
-        `;
-        box.appendChild(wrap);
-        document.getElementById("arenaNumInput").oninput = (e) => {
-          const val = e.target.value.trim();
-          if (val !== "") {
-            arenaAnswers[currentArenaIdx] = Number(val);
-          } else {
-            delete arenaAnswers[currentArenaIdx];
-          }
-          renderArenaSlider();
-        };
-      }
-    }
-
-    function prevArenaQuestion() {
-      if (currentArenaIdx > 0) {
-        currentArenaIdx--;
-        renderArenaSlider();
-        renderArenaQuestion();
-      }
-    }
-    function nextArenaQuestion() {
-      if (currentArenaIdx < arenaQuestions.length - 1) {
-        currentArenaIdx++;
-        renderArenaSlider();
-        renderArenaQuestion();
-      }
-    }
-
-    function submitArenaExam(forceSubmit) {
-      if (!forceSubmit) {
-        const answeredCount = Object.keys(arenaAnswers).length;
-        if (answeredCount < arenaQuestions.length) {
-          const confirmSubmit = confirm(`Bạn mới hoàn thành ${answeredCount}/${arenaQuestions.length} câu hỏi. Bạn có chắc chắn muốn nộp bài?`);
-          if (!confirmSubmit) return;
-        }
-      }
-
-      clearInterval(arenaTimerInterval);
-
-      let correctCount = 0;
-      arenaQuestions.forEach((q, idx) => {
-        if (arenaAnswers[idx] === q.answer) {
-          correctCount++;
-        }
-      });
-
-      const total = arenaQuestions.length;
-      const scale10 = ((correctCount / total) * 10).toFixed(1);
-
-      document.getElementById("arenaExamBox").style.display = "none";
-      document.getElementById("arenaResultBox").style.display = "block";
-      document.getElementById("arenaResultScore").innerText = `${correctCount} / ${total}`;
-      document.getElementById("arenaResultScale10").innerText = scale10;
-
-      if (correctCount >= total / 2) {
-        SoundFX.playCorrect();
-      } else {
-        SoundFX.playIncorrect();
-      }
-
-      const payload = {
-        action: "submitScore",
-        timestamp: new Date().toLocaleString("vi-VN"),
-        examType: "Dau_Truong_Unit2",
-        name: currentUser.name,
-        class: currentUser.class,
-        room: document.getElementById("arenaCurrentRoomLabel").innerText,
-        score: scale10,
-        correctCount: `${correctCount}/${total}`,
-        timeSpent: (ARENA_CONFIG.durationMinutes * 60) - arenaRemainingSeconds
-      };
-
-      const syncStatus = document.getElementById("arenaResultSyncStatus");
-      syncStatus.innerText = "⏳ Đang kết nối gửi bảng điểm về Google Sheets...";
-
-      fetch(ARENA_CONFIG.googleSheetUrl, {
-        method: "POST",
-        mode: "no-cors",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      })
-      .then(() => {
-        syncStatus.innerHTML = "<span style='color: var(--success); font-weight:700;'>✅ Bảng điểm đã được đồng bộ thành công lên máy chủ giáo viên!</span>";
-      })
-      .catch((err) => {
-        console.error("Lỗi đồng bộ:", err);
-        syncStatus.innerHTML = "<span style='color: var(--amber);'>⚠️ Điểm đã lưu cục bộ (Không thể gửi đến Google Sheets).</span>";
-      });
-    }
-
-    function restartArena() {
-      document.getElementById("arenaLockBox").style.display = "block";
-      document.getElementById("arenaResultBox").style.display = "none";
-      document.getElementById("arenaExamBox").style.display = "none";
-    }
-
-    /* 8. VIEWS COUNTER */
-    function initViewCounter() {
-      let views = parseInt(localStorage.getItem("s12_bio_unit2_views") || "100", 10);
-      views += 1;
-      localStorage.setItem("s12_bio_unit2_views", views);
-      document.getElementById("viewCountText").innerText = views.toLocaleString("vi-VN");
-
-      try {
-        fetch(`${ARENA_CONFIG.googleSheetUrl}?action=view&count=${views}`, { mode: 'no-cors' }).catch(()=>{});
-      } catch (e) {}
-    }
-
-    window.addEventListener("DOMContentLoaded", () => {
-      initUser();
-      renderFlashcard(0);
-      initViewCounter();
-    });
-  </script>
-</body>
-</html>
