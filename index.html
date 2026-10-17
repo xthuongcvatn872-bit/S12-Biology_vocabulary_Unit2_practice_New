@@ -444,10 +444,10 @@
 
   <!-- NAVIGATION TABS -->
   <nav class="nav-tabs">
-    <button class="tab-btn active" onclick="switchScreen('welcome')">🏠 Trang chủ</button>
-    <button class="tab-btn" onclick="switchScreen('flashcard')">🗂️ Flashcard Đa phương tiện</button>
-    <button class="tab-btn" onclick="switchScreen('practice')">✏️ Luyện tập (Review Quiz)</button>
-    <button class="tab-btn" onclick="switchScreen('arena')">🏆 Đấu trường (Arena)</button>
+    <button type="button" class="tab-btn active" onclick="switchScreen('welcome')">🏠 Trang chủ</button>
+    <button type="button" class="tab-btn" onclick="switchScreen('flashcard')">🗂️ Flashcard Đa phương tiện</button>
+    <button type="button" class="tab-btn" onclick="switchScreen('practice')">✏️ Luyện tập (Review Quiz)</button>
+    <button type="button" class="tab-btn" onclick="switchScreen('arena')">🏆 Đấu trường (Arena)</button>
   </nav>
 
   <main>
@@ -471,7 +471,7 @@
           <input type="text" id="inputStudentClass" class="form-control" autocomplete="off" />
         </div>
 
-        <button class="btn btn-primary" style="width: 100%; padding: 0.75rem;" onclick="saveUserInfoAndStart()">
+        <button type="button" id="btnStartApp" class="btn btn-primary" style="width: 100%; padding: 0.75rem;" onclick="saveUserInfoAndStart()">
           🚀 Bắt đầu học tập ngay
         </button>
 
@@ -516,7 +516,7 @@
             <div class="scramble-chips-row" id="scrambleLettersContainer"></div>
             <div class="scramble-input-group">
               <input type="text" id="scrambleInput" class="form-control" autocomplete="off" style="text-transform: uppercase; font-weight: 700; text-align: center;" />
-              <button class="btn btn-primary" style="padding: 0 1.25rem;" onclick="checkScramble()">Kiểm tra</button>
+              <button type="button" class="btn btn-primary" style="padding: 0 1.25rem;" onclick="checkScramble()">Kiểm tra</button>
             </div>
             <div id="scrambleFeedback" style="margin-top: 0.45rem; font-weight: 700; font-size: 0.85rem;"></div>
           </div>
@@ -536,8 +536,8 @@
       </div>
 
       <div class="fc-nav-controls">
-        <button class="btn btn-prev" onclick="navigateCard(-1)">◀ Previous</button>
-        <button class="btn btn-next" onclick="navigateCard(1)">Next ▶</button>
+        <button type="button" class="btn btn-prev" onclick="navigateCard(-1)">◀ Previous</button>
+        <button type="button" class="btn btn-next" onclick="navigateCard(1)">Next ▶</button>
       </div>
     </section>
 
@@ -551,8 +551,8 @@
           </div>
           <div style="display: flex; gap: 0.5rem; align-items: center;">
             <label style="font-size: 0.85rem; font-weight: 700;">Số lượng:</label>
-            <button class="btn btn-outline" id="btnQuiz10" onclick="initPracticeQuiz(10)">10 câu</button>
-            <button class="btn btn-outline" id="btnQuiz20" onclick="initPracticeQuiz(20)">20 câu</button>
+            <button type="button" class="btn btn-outline" id="btnQuiz10" onclick="initPracticeQuiz(10)">10 câu</button>
+            <button type="button" class="btn btn-outline" id="btnQuiz20" onclick="initPracticeQuiz(20)">20 câu</button>
           </div>
         </div>
       </div>
@@ -563,7 +563,7 @@
         <div style="margin-bottom: 1.25rem;">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
             <span class="unit-hero-badge" id="practiceQuestionTypeBadge" style="margin-bottom:0;">MCQ</span>
-            <button class="btn btn-outline" style="padding: 0.2rem 0.55rem; font-size: 0.78rem;" onclick="togglePracticeHint()">💡 Gợi ý</button>
+            <button type="button" class="btn btn-outline" style="padding: 0.2rem 0.55rem; font-size: 0.78rem;" onclick="togglePracticeHint()">💡 Gợi ý</button>
           </div>
           <h3 id="practiceQuestionTitle" style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.65rem;"></h3>
           <div id="practiceHintBox" style="display: none; background: #fef9c3; border-left: 3px solid #eab308; padding: 0.5rem; border-radius: 6px; font-size: 0.82rem; margin-bottom: 0.85rem;"></div>
@@ -571,13 +571,12 @@
 
         <div id="practiceQuestionBody"></div>
 
-        <!-- Nút Nộp bài thường trực -->
         <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem; border-top: 1px solid var(--border); padding-top: 0.85rem; flex-wrap: wrap; gap: 0.5rem;">
           <div style="display: flex; gap: 0.5rem;">
-            <button class="btn btn-outline" onclick="prevPracticeQuestion()">⬅️ Câu trước</button>
-            <button class="btn btn-primary" onclick="nextPracticeQuestion()">Câu tiếp ➡️</button>
+            <button type="button" class="btn btn-outline" onclick="prevPracticeQuestion()">⬅️ Câu trước</button>
+            <button type="button" class="btn btn-primary" onclick="nextPracticeQuestion()">Câu tiếp ➡️</button>
           </div>
-          <button class="btn btn-amber" onclick="submitPracticeQuiz(false)">📤 Nộp bài luyện tập</button>
+          <button type="button" class="btn btn-amber" onclick="submitPracticeQuiz(false)">📤 Nộp bài luyện tập</button>
         </div>
       </div>
 
@@ -592,8 +591,8 @@
         </div>
         <div id="practiceResultDetails" style="text-align: left; margin: 1.25rem 0; font-size: 0.88rem; max-height: 250px; overflow-y: auto; padding: 0.5rem; background: #f8fafc; border-radius: var(--radius-md); border: 1px solid var(--border);"></div>
         <div style="display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
-          <button class="btn btn-primary" onclick="initPracticeQuiz(practiceQuestions.length || 10)">🔄 Luyện tập lại</button>
-          <button class="btn btn-outline" onclick="switchScreen('flashcard')">📖 Ôn lại Flashcard</button>
+          <button type="button" class="btn btn-primary" onclick="initPracticeQuiz(practiceQuestions.length || 10)">🔄 Luyện tập lại</button>
+          <button type="button" class="btn btn-outline" onclick="switchScreen('flashcard')">📖 Ôn lại Flashcard</button>
         </div>
       </div>
     </section>
@@ -610,7 +609,7 @@
         <div class="form-group">
           <input type="text" id="arenaRoomCodeInput" class="form-control" autocomplete="off" style="text-align: center; text-transform: uppercase; font-weight: 700; font-size: 1.1rem;" />
         </div>
-        <button class="btn btn-primary" style="width: 100%;" onclick="startArenaExam()">🔓 Mở Khóa Đề Thi & Bắt Đầu</button>
+        <button type="button" class="btn btn-primary" style="width: 100%;" onclick="startArenaExam()">🔓 Mở Khóa Đề Thi & Bắt Đầu</button>
       </div>
 
       <div id="arenaExamBox" style="display: none;">
@@ -640,10 +639,10 @@
 
           <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem; border-top: 1px solid var(--border); padding-top: 0.85rem;">
             <div style="display: flex; gap: 0.4rem;">
-              <button class="btn btn-outline" onclick="prevArenaQuestion()">⬅️ Trước</button>
-              <button class="btn btn-outline" onclick="nextArenaQuestion()">Sau ➡️</button>
+              <button type="button" class="btn btn-outline" onclick="prevArenaQuestion()">⬅️ Trước</button>
+              <button type="button" class="btn btn-outline" onclick="nextArenaQuestion()">Sau ➡️</button>
             </div>
-            <button class="btn btn-amber" onclick="submitArenaExam(false)">📤 Nộp bài thi</button>
+            <button type="button" class="btn btn-amber" onclick="submitArenaExam(false)">📤 Nộp bài thi</button>
           </div>
         </div>
       </div>
@@ -659,8 +658,8 @@
         </div>
 
         <div style="display: flex; gap: 0.75rem; justify-content: center;">
-          <button class="btn btn-primary" onclick="restartArena()">🔄 Thi lại lần nữa</button>
-          <button class="btn btn-outline" onclick="switchScreen('flashcard')">📖 Ôn lại từ vựng</button>
+          <button type="button" class="btn btn-primary" onclick="restartArena()">🔄 Thi lại lần nữa</button>
+          <button type="button" class="btn btn-outline" onclick="switchScreen('flashcard')">📖 Ôn lại từ vựng</button>
         </div>
       </div>
     </section>
@@ -681,53 +680,59 @@
     const SoundFX = {
       ctx: null,
       init() {
-        if (!this.ctx) {
-          const AudioContext = window.AudioContext || window.webkitAudioContext;
-          if (AudioContext) this.ctx = new AudioContext();
-        }
-        if (this.ctx && this.ctx.state === 'suspended') {
-          this.ctx.resume();
-        }
+        try {
+          if (!this.ctx) {
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            if (AudioContext) this.ctx = new AudioContext();
+          }
+          if (this.ctx && this.ctx.state === 'suspended') {
+            this.ctx.resume();
+          }
+        } catch(e){}
       },
       playCorrect() {
         this.init();
         if (!this.ctx) return;
-        const now = this.ctx.currentTime;
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
+        try {
+          const now = this.ctx.currentTime;
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
 
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(659.25, now);
-        osc.frequency.exponentialRampToValueAtTime(783.99, now + 0.12);
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(659.25, now);
+          osc.frequency.exponentialRampToValueAtTime(783.99, now + 0.12);
 
-        gain.gain.setValueAtTime(0.2, now);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+          gain.gain.setValueAtTime(0.2, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
 
-        osc.connect(gain);
-        gain.connect(this.ctx.destination);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
 
-        osc.start(now);
-        osc.stop(now + 0.35);
+          osc.start(now);
+          osc.stop(now + 0.35);
+        } catch(e){}
       },
       playIncorrect() {
         this.init();
         if (!this.ctx) return;
-        const now = this.ctx.currentTime;
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
+        try {
+          const now = this.ctx.currentTime;
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
 
-        osc.type = 'triangle';
-        osc.frequency.setValueAtTime(220, now);
-        osc.frequency.exponentialRampToValueAtTime(180, now + 0.18);
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(220, now);
+          osc.frequency.exponentialRampToValueAtTime(180, now + 0.18);
 
-        gain.gain.setValueAtTime(0.25, now);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.28);
+          gain.gain.setValueAtTime(0.25, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.28);
 
-        osc.connect(gain);
-        gain.connect(this.ctx.destination);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
 
-        osc.start(now);
-        osc.stop(now + 0.28);
+          osc.start(now);
+          osc.stop(now + 0.28);
+        } catch(e){}
       }
     };
 
@@ -989,7 +994,6 @@
 
     /* ==========================================================================
        2. CẤU HÌNH ĐẤU TRƯỜNG & GOOGLE SHEETS
-       (DÁN LINK URL APPS SCRIPT CỦA BẠN VÀO ĐÂY)
        ========================================================================== */
     const ARENA_CONFIG = {
       validCodes: ["CVA", "TUDO"],
@@ -998,7 +1002,7 @@
     };
 
     /* ==========================================================================
-       3. BỘ ĐỀ ĐẤU TRƯỜNG UNIT 2 (ĐÃ CHUẨN HÓA CÂU 1 & CÂU 5)
+       3. BỘ ĐỀ ĐẤU TRƯỜNG UNIT 2 (CHUẨN HÓA DNA, amino acid, mRNA)
        ========================================================================== */
     const ARENA_EXAMS = {
       defaultExam: [
@@ -1082,8 +1086,10 @@
       ]
     };
 
-    /* 4. USER & NAVIGATION LOGIC */
-    let currentUser = { name: "", class: "", id: "" };
+    /* ==========================================================================
+       4. USER & NAVIGATION LOGIC (ĐÃ BỌC AN TOÀN FAIL-SAFE 100%)
+       ========================================================================== */
+    let currentUser = { name: "", class: "", id: "HS_" + Math.floor(1000 + Math.random() * 9000) };
     let currentCardIndex = 0;
     let practiceQuestions = [];
     let currentPracticeIdx = 0;
@@ -1095,61 +1101,90 @@
     let arenaRemainingSeconds = 180;
 
     function switchScreen(screenName) {
-      document.querySelectorAll(".screen").forEach(el => el.classList.remove("active"));
-      document.querySelectorAll(".tab-btn").forEach(el => el.classList.remove("active"));
+      try {
+        document.querySelectorAll(".screen").forEach(el => el.classList.remove("active"));
+        document.querySelectorAll(".tab-btn").forEach(el => el.classList.remove("active"));
 
-      const target = document.getElementById("screen-" + screenName);
-      if (target) target.classList.add("active");
+        const target = document.getElementById("screen-" + screenName);
+        if (target) target.classList.add("active");
 
-      const tabs = ["welcome", "flashcard", "practice", "arena"];
-      const activeIdx = tabs.indexOf(screenName);
-      if (activeIdx >= 0) {
-        document.querySelectorAll(".nav-tabs .tab-btn")[activeIdx].classList.add("active");
+        const tabs = ["welcome", "flashcard", "practice", "arena"];
+        const activeIdx = tabs.indexOf(screenName);
+        if (activeIdx >= 0) {
+          const tabBtns = document.querySelectorAll(".nav-tabs .tab-btn");
+          if (tabBtns[activeIdx]) tabBtns[activeIdx].classList.add("active");
+        }
+
+        if (screenName === 'flashcard') {
+          renderFlashcard(currentCardIndex);
+        }
+
+        if (screenName === 'practice' && practiceQuestions.length === 0) {
+          initPracticeQuiz(10);
+        }
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } catch(err) {
+        console.error("Lỗi chuyển màn hình:", err);
       }
-
-      if (screenName === 'practice' && practiceQuestions.length === 0) {
-        initPracticeQuiz(10);
-      }
-
-      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function initUser() {
-      const saved = localStorage.getItem("s12_bio_user");
-      if (saved) {
-        currentUser = JSON.parse(saved);
-        updateUserUI();
-      } else {
-        currentUser.id = "HS_" + Math.floor(1000 + Math.random() * 9000);
+      try {
+        const saved = localStorage.getItem("s12_bio_unit2_user");
+        if (saved) {
+          currentUser = JSON.parse(saved);
+          updateUserUI();
+        }
+      } catch(e) {
+        console.warn("Không thể đọc localStorage:", e);
       }
     }
 
     function saveUserInfoAndStart() {
-      const nameInput = document.getElementById("inputStudentName").value.trim();
-      const classInput = document.getElementById("inputStudentClass").value.trim();
+      try {
+        const nameInput = document.getElementById("inputStudentName");
+        const classInput = document.getElementById("inputStudentClass");
 
-      currentUser.name = nameInput || ("Thí sinh tự do (" + currentUser.id + ")");
-      currentUser.class = classInput || "Tự do";
-      localStorage.setItem("s12_bio_user", JSON.stringify(currentUser));
-      updateUserUI();
+        const valName = nameInput ? nameInput.value.trim() : "";
+        const valClass = classInput ? classInput.value.trim() : "";
+
+        currentUser.name = valName || ("Thí sinh tự do (" + currentUser.id + ")");
+        currentUser.class = valClass || "Tự do";
+
+        try {
+          localStorage.setItem("s12_bio_unit2_user", JSON.stringify(currentUser));
+        } catch(e){}
+
+        updateUserUI();
+      } catch(e) {
+        console.error("Lỗi khi lưu thông tin:", e);
+      }
+
+      // Luôn luôn chuyển màn hình kể cả khi localStorage bị lỗi
       switchScreen("flashcard");
     }
 
     function updateUserUI() {
-      const badge = document.getElementById("headerUserBadge");
-      if (currentUser.name) {
-        badge.innerHTML = `👤 ${currentUser.name} <span style="opacity:0.75">(${currentUser.class})</span>`;
-      }
+      try {
+        const badge = document.getElementById("headerUserBadge");
+        if (badge && currentUser.name) {
+          badge.innerHTML = `👤 ${currentUser.name} <span style="opacity:0.75">(${currentUser.class})</span>`;
+        }
+      } catch(e){}
     }
 
-    /* 5. FLASHCARD ENGINE CÓ SMART AUTO-FALLBACK & SOUND EFFECT */
+    /* ==========================================================================
+       5. FLASHCARD ENGINE CÓ SMART AUTO-FALLBACK & SOUND EFFECT
+       ========================================================================== */
     function renderFlashcard(index) {
       if (index < 0) index = 0;
       if (index >= VOCABULARY_DATA.length) index = VOCABULARY_DATA.length - 1;
       currentCardIndex = index;
 
       const item = VOCABULARY_DATA[index];
-      document.getElementById("fcCounter").innerText = `${index + 1} / ${VOCABULARY_DATA.length}`;
+      const counterEl = document.getElementById("fcCounter");
+      if (counterEl) counterEl.innerText = `${index + 1} / ${VOCABULARY_DATA.length}`;
 
       const candidates = Array.from(new Set([
         item.code,
@@ -1158,67 +1193,73 @@
         ...(item.aliases || [])
       ]));
 
-      // Ảnh Slide
+      // 1. Ảnh Slide
       const imgEl = document.getElementById("fcImg");
-      let imgCandidateIdx = 0;
-      function tryNextImage() {
-        if (imgCandidateIdx < candidates.length) {
-          const currentCode = candidates[imgCandidateIdx++];
-          imgEl.onerror = () => tryNextImage();
-          imgEl.src = `media/${currentCode}.png`;
-        } else {
-          imgEl.onerror = null;
-          const svgContent = `
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
-              <defs>
-                <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#ecfdf5"/>
-                  <stop offset="100%" stop-color="#d1fae5"/>
-                </linearGradient>
-              </defs>
-              <rect width="800" height="450" rx="16" fill="url(#bgGrad)"/>
-              <rect x="24" y="24" width="752" height="402" rx="12" fill="none" stroke="#059669" stroke-width="2" stroke-dasharray="6,6"/>
-              <text x="400" y="110" font-family="'Plus Jakarta Sans', sans-serif" font-size="22" font-weight="800" fill="#047857" text-anchor="middle">UNIT 2: BIOLOGY VOCABULARY</text>
-              <text x="400" y="200" font-family="'Plus Jakarta Sans', sans-serif" font-size="52" font-weight="800" fill="#065f46" text-anchor="middle">${item.word}</text>
-              <text x="400" y="250" font-family="'Plus Jakarta Sans', sans-serif" font-size="24" font-weight="600" fill="#0284c7" text-anchor="middle">${item.ipa}</text>
-              <text x="400" y="320" font-family="'Plus Jakarta Sans', sans-serif" font-size="18" font-weight="500" fill="#334155" text-anchor="middle">${item.defVi.length > 60 ? item.defVi.substring(0,60)+'...' : item.defVi}</text>
-            </svg>
-          `;
-          imgEl.src = 'data:image/svg+xml;utf8,' + encodeURIComponent(svgContent);
+      if (imgEl) {
+        let imgCandidateIdx = 0;
+        function tryNextImage() {
+          if (imgCandidateIdx < candidates.length) {
+            const currentCode = candidates[imgCandidateIdx++];
+            imgEl.onerror = () => tryNextImage();
+            imgEl.src = `media/${currentCode}.png`;
+          } else {
+            imgEl.onerror = null;
+            const svgContent = `
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+                <defs>
+                  <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#ecfdf5"/>
+                    <stop offset="100%" stop-color="#d1fae5"/>
+                  </linearGradient>
+                </defs>
+                <rect width="800" height="450" rx="16" fill="url(#bgGrad)"/>
+                <rect x="24" y="24" width="752" height="402" rx="12" fill="none" stroke="#059669" stroke-width="2" stroke-dasharray="6,6"/>
+                <text x="400" y="110" font-family="'Plus Jakarta Sans', sans-serif" font-size="22" font-weight="800" fill="#047857" text-anchor="middle">UNIT 2: BIOLOGY VOCABULARY</text>
+                <text x="400" y="200" font-family="'Plus Jakarta Sans', sans-serif" font-size="52" font-weight="800" fill="#065f46" text-anchor="middle">${item.word}</text>
+                <text x="400" y="250" font-family="'Plus Jakarta Sans', sans-serif" font-size="24" font-weight="600" fill="#0284c7" text-anchor="middle">${item.ipa}</text>
+                <text x="400" y="320" font-family="'Plus Jakarta Sans', sans-serif" font-size="18" font-weight="500" fill="#334155" text-anchor="middle">${item.defVi && item.defVi.length > 60 ? item.defVi.substring(0,60)+'...' : (item.defVi || '')}</text>
+              </svg>
+            `;
+            imgEl.src = 'data:image/svg+xml;utf8,' + encodeURIComponent(svgContent);
+          }
         }
+        tryNextImage();
       }
-      tryNextImage();
 
-      // Audio
+      // 2. Audio
       const audioEl = document.getElementById("fcAudio");
-      let audioCandidateIdx = 0;
-      function tryNextAudio() {
-        if (audioCandidateIdx < candidates.length) {
-          const currentCode = candidates[audioCandidateIdx++];
-          audioEl.onerror = () => tryNextAudio();
-          audioEl.src = `media/${currentCode}.mp3`;
-          audioEl.load();
-        } else {
-          audioEl.onerror = null;
+      if (audioEl) {
+        let audioCandidateIdx = 0;
+        function tryNextAudio() {
+          if (audioCandidateIdx < candidates.length) {
+            const currentCode = candidates[audioCandidateIdx++];
+            audioEl.onerror = () => tryNextAudio();
+            audioEl.src = `media/${currentCode}.mp3`;
+            audioEl.load();
+          } else {
+            audioEl.onerror = null;
+          }
         }
+        tryNextAudio();
       }
-      tryNextAudio();
 
-      // Video
+      // 3. Video
       const videoEl = document.getElementById("fcVideo");
-      let videoCandidateIdx = 0;
-      videoEl.pause();
-      function tryNextVideo() {
-        if (videoCandidateIdx < candidates.length) {
-          const currentCode = candidates[videoCandidateIdx++];
-          videoEl.onerror = () => tryNextVideo();
-          videoEl.src = `media/${currentCode}.mp4`;
-          videoEl.load();
-        } else {
-          videoEl.onerror = null;
+      if (videoEl) {
+        let videoCandidateIdx = 0;
+        try { videoEl.pause(); } catch(e){}
+        function tryNextVideo() {
+          if (videoCandidateIdx < candidates.length) {
+            const currentCode = candidates[videoCandidateIdx++];
+            videoEl.onerror = () => tryNextVideo();
+            videoEl.src = `media/${currentCode}.mp4`;
+            videoEl.load();
+          } else {
+            videoEl.onerror = null;
+          }
         }
+        tryNextVideo();
       }
-      tryNextVideo();
 
       setupScramble(item.word);
     }
@@ -1229,7 +1270,7 @@
 
     let currentScrambleTarget = "";
     function setupScramble(word) {
-      currentScrambleTarget = word.toUpperCase().replace(/[^A-Z0-9]/g, '');
+      currentScrambleTarget = (word || "").toUpperCase().replace(/[^A-Z0-9]/g, '');
       const letters = currentScrambleTarget.split('');
       for (let i = letters.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -1237,36 +1278,43 @@
       }
 
       const container = document.getElementById("scrambleLettersContainer");
-      container.innerHTML = "";
-      letters.forEach(char => {
-        const chip = document.createElement("span");
-        chip.className = "scramble-chip";
-        chip.innerText = char;
-        container.appendChild(chip);
-      });
+      if (container) {
+        container.innerHTML = "";
+        letters.forEach(char => {
+          const chip = document.createElement("span");
+          chip.className = "scramble-chip";
+          chip.innerText = char;
+          container.appendChild(chip);
+        });
+      }
 
-      document.getElementById("scrambleInput").value = "";
-      document.getElementById("scrambleFeedback").innerText = "";
+      const inp = document.getElementById("scrambleInput");
+      if (inp) inp.value = "";
+      const fb = document.getElementById("scrambleFeedback");
+      if (fb) fb.innerText = "";
     }
 
     function checkScramble() {
-      const userVal = document.getElementById("scrambleInput").value.trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
+      const inp = document.getElementById("scrambleInput");
+      const userVal = inp ? inp.value.trim().toUpperCase().replace(/[^A-Z0-9]/g, '') : "";
       const fb = document.getElementById("scrambleFeedback");
       if (userVal === currentScrambleTarget) {
         SoundFX.playCorrect();
-        fb.innerHTML = "<span style='color: var(--success);'>🎉 Hoàn toàn chính xác! Chúc mừng bạn.</span>";
+        if (fb) fb.innerHTML = "<span style='color: var(--success);'>🎉 Hoàn toàn chính xác! Chúc mừng bạn.</span>";
       } else {
         SoundFX.playIncorrect();
-        fb.innerHTML = "<span style='color: var(--danger);'>❌ Chưa chính xác, hãy quan sát lại!</span>";
+        if (fb) fb.innerHTML = "<span style='color: var(--danger);'>❌ Chưa chính xác, hãy quan sát lại!</span>";
       }
     }
 
     /* ==========================================================================
-       6. REVIEW QUIZ (ĐỒNG BỘ ĐIỂM GOOGLE SHEETS)
+       6. REVIEW QUIZ
        ========================================================================== */
     function initPracticeQuiz(totalQuestions) {
-      document.getElementById("btnQuiz10").classList.toggle("btn-primary", totalQuestions === 10);
-      document.getElementById("btnQuiz20").classList.toggle("btn-primary", totalQuestions === 20);
+      const b10 = document.getElementById("btnQuiz10");
+      const b20 = document.getElementById("btnQuiz20");
+      if (b10) b10.classList.toggle("btn-primary", totalQuestions === 10);
+      if (b20) b20.classList.toggle("btn-primary", totalQuestions === 20);
 
       practiceQuestions = [];
       practiceAnswers = {};
@@ -1298,7 +1346,7 @@
         for (let idx = 0; idx < cleanWord.length; idx++) {
           if (cleanWord[idx] >= 'A' && cleanWord[idx] <= 'Z') validIndices.push(idx);
         }
-        const missingPos = validIndices[Math.floor(Math.random() * validIndices.length)];
+        const missingPos = validIndices.length > 0 ? validIndices[Math.floor(Math.random() * validIndices.length)] : 0;
         const correctChar = cleanWord.charAt(missingPos);
         const blanked = cleanWord.substring(0, missingPos) + " [ ? ] " + cleanWord.substring(missingPos + 1);
 
@@ -1341,17 +1389,22 @@
       }
 
       practiceQuestions = practiceQuestions.sort(() => 0.5 - Math.random());
-      document.getElementById("practiceQuizCard").style.display = "block";
-      document.getElementById("practiceResultBox").style.display = "none";
+      const qc = document.getElementById("practiceQuizCard");
+      if (qc) qc.style.display = "block";
+      const rb = document.getElementById("practiceResultBox");
+      if (rb) rb.style.display = "none";
+
       renderPracticeSlider();
       renderPracticeCurrentQuestion();
     }
 
     function renderPracticeSlider() {
       const slider = document.getElementById("practiceNavSlider");
+      if (!slider) return;
       slider.innerHTML = "";
       practiceQuestions.forEach((q, idx) => {
         const btn = document.createElement("button");
+        btn.type = "button";
         btn.className = `q-step-btn ${idx === currentPracticeIdx ? 'active' : ''} ${practiceAnswers[idx] !== undefined ? 'answered' : ''}`;
         btn.innerText = idx + 1;
         btn.onclick = () => {
@@ -1365,19 +1418,28 @@
 
     function renderPracticeCurrentQuestion() {
       const q = practiceQuestions[currentPracticeIdx];
-      document.getElementById("practiceQuestionTypeBadge").innerText = q.type.toUpperCase().replace('_', ' ');
-      document.getElementById("practiceQuestionTitle").innerText = `Câu ${currentPracticeIdx + 1}: ${q.question}`;
+      if (!q) return;
+
+      const badge = document.getElementById("practiceQuestionTypeBadge");
+      if (badge) badge.innerText = q.type.toUpperCase().replace('_', ' ');
+
+      const title = document.getElementById("practiceQuestionTitle");
+      if (title) title.innerText = `Câu ${currentPracticeIdx + 1}: ${q.question}`;
       
       const hintBox = document.getElementById("practiceHintBox");
-      hintBox.style.display = "none";
-      hintBox.innerText = "💡 Gợi ý: " + q.hint;
+      if (hintBox) {
+        hintBox.style.display = "none";
+        hintBox.innerText = "💡 Gợi ý: " + q.hint;
+      }
 
       const body = document.getElementById("practiceQuestionBody");
+      if (!body) return;
       body.innerHTML = "";
 
       if (q.type === "mcq") {
         q.options.forEach((opt, optIdx) => {
           const btn = document.createElement("button");
+          btn.type = "button";
           btn.className = `option-btn ${practiceAnswers[currentPracticeIdx] === optIdx ? 'selected' : ''}`;
           btn.innerHTML = `<span style="display:inline-block; width:22px; height:22px; border-radius:50%; background:#e5e7eb; text-align:center; line-height:22px; font-size:0.75rem;">${String.fromCharCode(65 + optIdx)}</span> ${opt}`;
           btn.onclick = () => {
@@ -1473,6 +1535,7 @@
         if (practiceAnswers[currentPracticeIdx]) inp.value = practiceAnswers[currentPracticeIdx];
 
         const chkBtn = document.createElement("button");
+        chkBtn.type = "button";
         chkBtn.className = "btn btn-primary";
         chkBtn.innerText = "Kiểm tra";
         chkBtn.onclick = () => {
@@ -1480,3 +1543,376 @@
           practiceAnswers[currentPracticeIdx] = val;
           if (val === q.target) {
             SoundFX.playCorrect();
+            alert("✅ Hoàn toàn chính xác!");
+          } else {
+            SoundFX.playIncorrect();
+            alert("❌ Chưa chính xác. Gợi ý: " + q.hint);
+          }
+          renderPracticeSlider();
+        };
+
+        wrap.appendChild(inp);
+        wrap.appendChild(chkBtn);
+        body.appendChild(wrap);
+      }
+    }
+
+    function togglePracticeHint() {
+      const box = document.getElementById("practiceHintBox");
+      if (box) box.style.display = box.style.display === "none" ? "block" : "none";
+    }
+
+    function prevPracticeQuestion() {
+      if (currentPracticeIdx > 0) {
+        currentPracticeIdx--;
+        renderPracticeSlider();
+        renderPracticeCurrentQuestion();
+      }
+    }
+    function nextPracticeQuestion() {
+      if (currentPracticeIdx < practiceQuestions.length - 1) {
+        currentPracticeIdx++;
+        renderPracticeSlider();
+        renderPracticeCurrentQuestion();
+      }
+    }
+
+    function submitPracticeQuiz(forceSubmit) {
+      if (!forceSubmit) {
+        const answeredCount = Object.keys(practiceAnswers).length;
+        const total = practiceQuestions.length;
+        if (answeredCount < total) {
+          const confirmSubmit = confirm(`Bạn đã làm ${answeredCount}/${total} câu. Bạn có chắc chắn muốn nộp bài để xem kết quả không?`);
+          if (!confirmSubmit) return;
+        }
+      }
+
+      let correctCount = 0;
+      let detailsHtml = "";
+
+      practiceQuestions.forEach((q, idx) => {
+        let isCorrect = false;
+        let userAnsText = practiceAnswers[idx] !== undefined ? practiceAnswers[idx] : "(Chưa trả lời)";
+
+        if (q.type === "mcq") {
+          isCorrect = (practiceAnswers[idx] === q.answer);
+          userAnsText = practiceAnswers[idx] !== undefined ? q.options[practiceAnswers[idx]] : "(Chưa trả lời)";
+        } else {
+          isCorrect = (practiceAnswers[idx] === q.target);
+        }
+
+        if (isCorrect) correctCount++;
+
+        detailsHtml += `
+          <div style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);">
+            <strong>Câu ${idx + 1}:</strong> ${isCorrect ? '✅' : '❌'} 
+            <span>Bạn chọn: <em>${userAnsText}</em></span>
+            ${!isCorrect ? `<span style="color:var(--primary); font-weight:700;"> (Đáp án đúng: ${q.correctDisplay})</span>` : ''}
+          </div>
+        `;
+      });
+
+      const total = practiceQuestions.length;
+      const percent = Math.round((correctCount / total) * 100);
+      const scale10 = ((correctCount / total) * 10).toFixed(1);
+
+      const qc = document.getElementById("practiceQuizCard");
+      if (qc) qc.style.display = "none";
+      const rb = document.getElementById("practiceResultBox");
+      if (rb) rb.style.display = "block";
+
+      const rs = document.getElementById("practiceResultScore");
+      if (rs) rs.innerText = `${correctCount} / ${total}`;
+      const rp = document.getElementById("practiceResultPercent");
+      if (rp) rp.innerText = `${percent}%`;
+      const r10 = document.getElementById("practiceResultScale10");
+      if (r10) r10.innerText = `${scale10}/10`;
+      const rd = document.getElementById("practiceResultDetails");
+      if (rd) rd.innerHTML = detailsHtml;
+
+      if (correctCount >= total / 2) {
+        SoundFX.playCorrect();
+      } else {
+        SoundFX.playIncorrect();
+      }
+
+      // Gửi điểm Luyện tập về Google Sheets
+      const syncStatus = document.getElementById("practiceSyncStatus");
+      if (syncStatus) syncStatus.innerText = "⏳ Đang kết nối gửi kết quả luyện tập về Google Sheets...";
+
+      const payload = {
+        action: "submitScore",
+        timestamp: new Date().toLocaleString("vi-VN"),
+        examType: "Luyen_Tap",
+        name: currentUser.name || "Thí sinh tự do",
+        class: currentUser.class || "Tự do",
+        room: `Review_Quiz_${total}cau`,
+        score: scale10,
+        correctCount: `${correctCount}/${total}`
+      };
+
+      try {
+        fetch(ARENA_CONFIG.googleSheetUrl, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        })
+        .then(() => {
+          if (syncStatus) syncStatus.innerHTML = "<span style='color: var(--success); font-weight:700;'>✅ Kết quả luyện tập đã được ghi nhận vào Google Sheets!</span>";
+        })
+        .catch(() => {
+          if (syncStatus) syncStatus.innerHTML = "<span style='color: var(--amber);'>⚠️ Điểm đã lưu cục bộ (Không thể gửi đến Google Sheets).</span>";
+        });
+      } catch(e){}
+    }
+
+    /* ==========================================================================
+       7. ARENA SYSTEM (ĐẾM NGƯỢC 3 PHÚT & ĐỒNG BỘ GOOGLE SHEETS)
+       ========================================================================== */
+    function startArenaExam() {
+      const codeInp = document.getElementById("arenaRoomCodeInput");
+      const rawInput = codeInp ? codeInp.value.trim().toUpperCase() : "";
+      const cleanInput = rawInput.replace(/\s+/g, '');
+
+      if (!ARENA_CONFIG.validCodes.includes(cleanInput)) {
+        alert("⚠️ Mã phòng thi không đúng! Vui lòng nhập đúng mã giáo viên cung cấp (cva hoặc tudo).");
+        return;
+      }
+
+      if (!currentUser.name) {
+        alert("⚠️ Vui lòng cập nhật Họ tên trước khi làm bài Đấu trường!");
+        switchScreen("welcome");
+        return;
+      }
+
+      const lb = document.getElementById("arenaLockBox");
+      if (lb) lb.style.display = "none";
+      const eb = document.getElementById("arenaExamBox");
+      if (eb) eb.style.display = "block";
+      const rb = document.getElementById("arenaResultBox");
+      if (rb) rb.style.display = "none";
+
+      const rLabel = document.getElementById("arenaCurrentRoomLabel");
+      if (rLabel) rLabel.innerText = cleanInput;
+      const cLabel = document.getElementById("arenaCandidateLabel");
+      if (cLabel) cLabel.innerText = `Thí sinh: ${currentUser.name} (${currentUser.class})`;
+
+      arenaQuestions = [...ARENA_EXAMS.defaultExam];
+      arenaAnswers = {};
+      currentArenaIdx = 0;
+      arenaRemainingSeconds = ARENA_CONFIG.durationMinutes * 60;
+
+      renderArenaSlider();
+      renderArenaQuestion();
+      startArenaTimer();
+    }
+
+    function startArenaTimer() {
+      clearInterval(arenaTimerInterval);
+      arenaTimerInterval = setInterval(() => {
+        arenaRemainingSeconds--;
+        const m = Math.floor(arenaRemainingSeconds / 60);
+        const s = arenaRemainingSeconds % 60;
+        const timerEl = document.getElementById("arenaTimer");
+        if (timerEl) timerEl.innerText = `${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}`;
+
+        if (arenaRemainingSeconds <= 0) {
+          clearInterval(arenaTimerInterval);
+          alert("⏰ Đã hết 03 phút làm bài! Hệ thống tự động nộp bài.");
+          submitArenaExam(true);
+        }
+      }, 1000);
+    }
+
+    function renderArenaSlider() {
+      const slider = document.getElementById("arenaNavSlider");
+      if (!slider) return;
+      slider.innerHTML = "";
+      arenaQuestions.forEach((q, idx) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = `q-step-btn ${idx === currentArenaIdx ? 'active' : ''} ${arenaAnswers[idx] !== undefined ? 'answered' : ''}`;
+        btn.innerText = idx + 1;
+        btn.onclick = () => {
+          currentArenaIdx = idx;
+          renderArenaSlider();
+          renderArenaQuestion();
+        };
+        slider.appendChild(btn);
+      });
+    }
+
+    function renderArenaQuestion() {
+      const q = arenaQuestions[currentArenaIdx];
+      if (!q) return;
+
+      const numL = document.getElementById("arenaQNumberLabel");
+      if (numL) numL.innerText = `Câu ${currentArenaIdx + 1} / ${arenaQuestions.length}`;
+      const typeB = document.getElementById("arenaQuestionTypeBadge");
+      if (typeB) typeB.innerText = q.type.toUpperCase();
+      const title = document.getElementById("arenaQuestionTitle");
+      if (title) title.innerText = q.question;
+
+      const box = document.getElementById("arenaQuestionContent");
+      if (!box) return;
+      box.innerHTML = "";
+
+      if (q.type === "mcq" || q.type === "tf") {
+        q.options.forEach((opt, optIdx) => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = `option-btn ${arenaAnswers[currentArenaIdx] === optIdx ? 'selected' : ''}`;
+          btn.innerHTML = `<span style="display:inline-block; width:22px; height:22px; border-radius:50%; background:#e2e8f0; text-align:center; line-height:22px; font-size:0.75rem;">${String.fromCharCode(65 + optIdx)}</span> ${opt}`;
+          btn.onclick = () => {
+            arenaAnswers[currentArenaIdx] = optIdx;
+            renderArenaSlider();
+            renderArenaQuestion();
+          };
+          box.appendChild(btn);
+        });
+      } else if (q.type === "num") {
+        const wrap = document.createElement("div");
+        wrap.style.marginTop = "0.85rem";
+        wrap.innerHTML = `
+          <label style="font-size:0.85rem; font-weight:700; margin-bottom:0.35rem; display:block;">Nhập số nguyên đáp án:</label>
+          <input type="number" id="arenaNumInput" class="form-control" autocomplete="off" style="max-width:220px; font-weight:700; font-size:1.1rem;" value="${arenaAnswers[currentArenaIdx] !== undefined ? arenaAnswers[currentArenaIdx] : ''}">
+        `;
+        box.appendChild(wrap);
+        const inp = document.getElementById("arenaNumInput");
+        if (inp) {
+          inp.oninput = (e) => {
+            const val = e.target.value.trim();
+            if (val !== "") {
+              arenaAnswers[currentArenaIdx] = Number(val);
+            } else {
+              delete arenaAnswers[currentArenaIdx];
+            }
+            renderArenaSlider();
+          };
+        }
+      }
+    }
+
+    function prevArenaQuestion() {
+      if (currentArenaIdx > 0) {
+        currentArenaIdx--;
+        renderArenaSlider();
+        renderArenaQuestion();
+      }
+    }
+    function nextArenaQuestion() {
+      if (currentArenaIdx < arenaQuestions.length - 1) {
+        currentArenaIdx++;
+        renderArenaSlider();
+        renderArenaQuestion();
+      }
+    }
+
+    function submitArenaExam(forceSubmit) {
+      if (!forceSubmit) {
+        const answeredCount = Object.keys(arenaAnswers).length;
+        if (answeredCount < arenaQuestions.length) {
+          const confirmSubmit = confirm(`Bạn mới hoàn thành ${answeredCount}/${arenaQuestions.length} câu hỏi. Bạn có chắc chắn muốn nộp bài?`);
+          if (!confirmSubmit) return;
+        }
+      }
+
+      clearInterval(arenaTimerInterval);
+
+      let correctCount = 0;
+      arenaQuestions.forEach((q, idx) => {
+        if (arenaAnswers[idx] === q.answer) {
+          correctCount++;
+        }
+      });
+
+      const total = arenaQuestions.length;
+      const scale10 = ((correctCount / total) * 10).toFixed(1);
+
+      const eb = document.getElementById("arenaExamBox");
+      if (eb) eb.style.display = "none";
+      const rb = document.getElementById("arenaResultBox");
+      if (rb) rb.style.display = "block";
+
+      const rs = document.getElementById("arenaResultScore");
+      if (rs) rs.innerText = `${correctCount} / ${total}`;
+      const r10 = document.getElementById("arenaResultScale10");
+      if (r10) r10.innerText = scale10;
+
+      if (correctCount >= total / 2) {
+        SoundFX.playCorrect();
+      } else {
+        SoundFX.playIncorrect();
+      }
+
+      const rLabel = document.getElementById("arenaCurrentRoomLabel");
+      const payload = {
+        action: "submitScore",
+        timestamp: new Date().toLocaleString("vi-VN"),
+        examType: "Dau_Truong",
+        name: currentUser.name,
+        class: currentUser.class,
+        room: rLabel ? rLabel.innerText : "TUDO",
+        score: scale10,
+        correctCount: `${correctCount}/${total}`,
+        timeSpent: (ARENA_CONFIG.durationMinutes * 60) - arenaRemainingSeconds
+      };
+
+      const syncStatus = document.getElementById("arenaResultSyncStatus");
+      if (syncStatus) syncStatus.innerText = "⏳ Đang kết nối gửi bảng điểm về Google Sheets...";
+
+      try {
+        fetch(ARENA_CONFIG.googleSheetUrl, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        })
+        .then(() => {
+          if (syncStatus) syncStatus.innerHTML = "<span style='color: var(--success); font-weight:700;'>✅ Bảng điểm đấu trường đã được đồng bộ thành công lên máy chủ giáo viên!</span>";
+        })
+        .catch(() => {
+          if (syncStatus) syncStatus.innerHTML = "<span style='color: var(--amber);'>⚠️ Điểm đã lưu cục bộ (Không thể gửi đến Google Sheets).</span>";
+        });
+      } catch(e){}
+    }
+
+    function restartArena() {
+      const lb = document.getElementById("arenaLockBox");
+      if (lb) lb.style.display = "block";
+      const rb = document.getElementById("arenaResultBox");
+      if (rb) rb.style.display = "none";
+      const eb = document.getElementById("arenaExamBox");
+      if (eb) eb.style.display = "none";
+    }
+
+    /* ==========================================================================
+       8. VIEWS COUNTER & KHỞI TẠO AN TOÀN
+       ========================================================================== */
+    function initViewCounter() {
+      try {
+        let views = parseInt(localStorage.getItem("s12_bio_unit2_views") || "100", 10);
+        views += 1;
+        localStorage.setItem("s12_bio_unit2_views", views);
+        const vc = document.getElementById("viewCountText");
+        if (vc) vc.innerText = views.toLocaleString("vi-VN");
+
+        fetch(`${ARENA_CONFIG.googleSheetUrl}?action=view&count=${views}`, { mode: 'no-cors' }).catch(()=>{});
+      } catch (e) {}
+    }
+
+    // Đăng ký sự kiện an toàn tuyệt đối
+    window.addEventListener("DOMContentLoaded", () => {
+      initUser();
+      initViewCounter();
+
+      // Gắn thêm listener trực tiếp cho nút Bắt đầu
+      const startBtn = document.getElementById("btnStartApp");
+      if (startBtn) {
+        startBtn.addEventListener("click", saveUserInfoAndStart);
+      }
+    });
+  </script>
+</body>
+</html>
